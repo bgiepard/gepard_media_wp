@@ -2,7 +2,8 @@
 
 import { WPPost } from '@/types/wordpress'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -66,9 +67,9 @@ export default function PostsSlider({ posts }: Props) {
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
 
-          <Button asChild variant="secondary" className="bg-white text-foreground hover:bg-white/90 font-semibold rounded-full px-6">
-            <Link href={`/posts/${post.slug}`}>Czytaj artykuł →</Link>
-          </Button>
+          <Link href={`/posts/${post.slug}`} className={cn(buttonVariants({ variant: 'secondary' }), 'bg-white text-foreground hover:bg-white/90 font-semibold rounded-full px-6')}>
+            Czytaj artykuł →
+          </Link>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import CartIcon from '@/components/CartIcon'
 
 export default function Header() {
@@ -19,9 +20,9 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <CartIcon />
-          <Button asChild size="sm">
-            <Link href="/kontakt">Napisz do nas</Link>
-          </Button>
+          <Link href="/kontakt" className={cn(buttonVariants({ size: 'sm' }), 'rounded-full')}>
+            Napisz do nas
+          </Link>
         </div>
       </div>
     </header>
