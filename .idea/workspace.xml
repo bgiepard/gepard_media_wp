@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="640fb1b7-15f7-4344-ab02-45be87c63dcf" name="Changes" comment="rebuild 3">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="640fb1b7-15f7-4344-ab02-45be87c63dcf" name="Changes" comment="optymalizacja" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1778850480524</updated>
-      <workItem from="1778850481744" duration="8049000" />
+      <workItem from="1778850481744" duration="8453000" />
     </task>
     <task id="LOCAL-00001" summary="rebuild">
       <option name="closed" value="true" />
@@ -102,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778857305053</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="optymalizacja">
+      <option name="closed" value="true" />
+      <created>1778859036631</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778859036631</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +118,7 @@
     <MESSAGE value="rebuild" />
     <MESSAGE value="rebuild 2" />
     <MESSAGE value="rebuild 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="rebuild 3" />
+    <MESSAGE value="optymalizacja" />
+    <option name="LAST_COMMIT_MESSAGE" value="optymalizacja" />
   </component>
 </project>
