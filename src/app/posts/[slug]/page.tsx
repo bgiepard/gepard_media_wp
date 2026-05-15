@@ -1,9 +1,28 @@
-import { getPostBySlug } from '@/lib/wordpress'
+import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs()
+  return slugs.map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPostBySlug(slug)
+  if (!post) return {}
+  const image = post._embedded?.['wp:featuredmedia']?.[0]
+  return {
+    title: post.title.rendered.replace(/<[^>]+>/g, ''),
+    description: post.excerpt.rendered.replace(/<[^>]+>/g, '').slice(0, 160),
+    openGraph: image ? { images: [image.source_url] } : undefined,
+  }
 }
 
 export default async function PostPage({ params }: Props) {
@@ -22,11 +41,16 @@ export default async function PostPage({ params }: Props) {
       </Link>
 
       {image && (
-        <img
-          src={image.source_url}
-          alt={image.alt_text || post.title.rendered}
-          className="w-full h-72 object-cover rounded-lg mb-8"
-        />
+        <div className="relative w-full h-72 rounded-lg overflow-hidden mb-8">
+          <Image
+            src={image.source_url}
+            alt={image.alt_text || post.title.rendered}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover"
+          />
+        </div>
       )}
 
       <h1

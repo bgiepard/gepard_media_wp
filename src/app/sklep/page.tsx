@@ -1,5 +1,12 @@
 import { getProducts } from '@/lib/woocommerce'
+import Image from 'next/image'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Sklep',
+  description: 'Przeglądaj nasze produkty',
+}
 
 export default async function ShopPage() {
   const products = await getProducts()
@@ -19,12 +26,14 @@ export default async function ShopPage() {
 
           return (
             <article key={product.id} className="group flex flex-col border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="overflow-hidden bg-gray-50 h-56">
+              <div className="relative overflow-hidden bg-gray-50 h-56">
                 {image ? (
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt || product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-blue-50 to-gray-100" />

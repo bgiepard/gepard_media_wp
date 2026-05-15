@@ -66,3 +66,7 @@ export async function getProductBySlug(slug: string): Promise<WCProduct | null> 
   const products = await fetchWC<WCProduct[]>(`/products?slug=${slug}`)
   return products[0] ?? null
 }
+
+export async function getAllProductSlugs(): Promise<{ slug: string }[]> {
+  return fetchWC('/products?_fields=slug&per_page=100&status=publish')
+}

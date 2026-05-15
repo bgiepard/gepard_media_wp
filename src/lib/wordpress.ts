@@ -24,3 +24,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 export async function getCategories(): Promise<WPCategory[]> {
   return fetchWP('/categories?per_page=100')
 }
+
+export async function getAllPostSlugs(): Promise<{ slug: string }[]> {
+  return fetchWP('/posts?_fields=slug&per_page=100')
+}

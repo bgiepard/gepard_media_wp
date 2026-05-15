@@ -1,6 +1,7 @@
 'use client'
 
 import { WPPost } from '@/types/wordpress'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -22,10 +23,13 @@ export default function PostsSlider({ posts }: Props) {
     <section className="relative w-full overflow-hidden rounded-2xl bg-gray-900 shadow-xl">
       <div className="relative h-[480px]">
         {image ? (
-          <img
+          <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
-            className="absolute inset-0 w-full h-full object-cover opacity-50"
+            fill
+            priority={current === 0}
+            sizes="100vw"
+            className="object-cover opacity-50"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-gray-900" />

@@ -1,10 +1,28 @@
-import { getProductBySlug } from '@/lib/woocommerce'
+import { getProductBySlug, getAllProductSlugs } from '@/lib/woocommerce'
 import AddToCartButton from '@/components/AddToCartButton'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateStaticParams() {
+  const slugs = await getAllProductSlugs()
+  return slugs.map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const product = await getProductBySlug(slug)
+  if (!product) return {}
+  return {
+    title: product.name,
+    description: product.short_description.replace(/<[^>]+>/g, '').slice(0, 160),
+    openGraph: product.images[0] ? { images: [product.images[0].src] } : undefined,
+  }
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -23,9 +41,16 @@ export default async function ProductPage({ params }: Props) {
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <div className="rounded-2xl overflow-hidden bg-gray-50 aspect-square">
+        <div className="rounded-2xl overflow-hidden bg-gray-50 aspect-square relative">
           {image ? (
-            <img src={image.src} alt={image.alt || product.name} className="w-full h-full object-cover" />
+            <Image
+              src={image.src}
+              alt={image.alt || product.name}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-blue-50 to-gray-100" />
           )}
