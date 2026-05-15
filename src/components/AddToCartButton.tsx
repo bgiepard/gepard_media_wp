@@ -1,6 +1,7 @@
 'use client'
 
 import { useCart, CartItem } from '@/context/CartContext'
+import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
 interface Props {
@@ -18,15 +19,13 @@ export default function AddToCartButton({ product }: Props) {
   }
 
   return (
-    <button
+    <Button
       onClick={handleAdd}
-      className={`w-full py-3 px-6 rounded-full font-semibold transition-all ${
-        added
-          ? 'bg-green-500 text-white'
-          : 'bg-blue-600 text-white hover:bg-blue-700'
-      }`}
+      size="lg"
+      className="w-full rounded-full font-semibold"
+      variant={added ? 'secondary' : 'default'}
     >
       {added ? '✓ Dodano do koszyka' : 'Dodaj do koszyka'}
-    </button>
+    </Button>
   )
 }

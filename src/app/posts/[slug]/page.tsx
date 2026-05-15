@@ -1,4 +1,5 @@
 import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress'
+import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -33,15 +34,39 @@ export default async function PostPage({ params }: Props) {
 
   const image = post._embedded?.['wp:featuredmedia']?.[0]
   const author = post._embedded?.author?.[0]
+  const category = post._embedded?.['wp:term']?.[0]?.[0]
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
-      <Link href="/" className="text-sm text-blue-600 hover:underline mb-8 inline-block">
-        ← Wróć do bloga
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-10">
+        ← Blog
       </Link>
 
+      {category && (
+        <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-4">
+          {category.name}
+        </p>
+      )}
+
+      <h1
+        className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6"
+        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+      />
+
+      <div className="flex items-center gap-3 text-sm text-muted-foreground mb-10">
+        <time>
+          {new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+        {author && (
+          <>
+            <Separator orientation="vertical" className="h-4" />
+            <span>{author.name}</span>
+          </>
+        )}
+      </div>
+
       {image && (
-        <div className="relative w-full h-72 rounded-lg overflow-hidden mb-8">
+        <div className="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden mb-12 bg-muted">
           <Image
             src={image.source_url}
             alt={image.alt_text || post.title.rendered}
@@ -53,24 +78,8 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      <h1
-        className="text-4xl font-bold mb-4"
-        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-      />
-
-      <div className="flex items-center gap-4 text-sm text-gray-500 mb-10">
-        <time>
-          {new Date(post.date).toLocaleDateString('pl-PL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
-        </time>
-        {author && <span>· {author.name}</span>}
-      </div>
-
       <div
-        className="prose prose-lg max-w-none"
+        className="prose prose-neutral max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline-offset-4 prose-img:rounded-xl"
         dangerouslySetInnerHTML={{ __html: post.content.rendered }}
       />
     </main>

@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="640fb1b7-15f7-4344-ab02-45be87c63dcf" name="Changes" comment="readme">
+    <list default="true" id="640fb1b7-15f7-4344-ab02-45be87c63dcf" name="Changes" comment="revalidate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/posts/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/posts/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sklep/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sklep/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sklep/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sklep/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddToCartButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddToCartButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostsSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostsSlider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +88,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1778850480524</updated>
-      <workItem from="1778850481744" duration="9080000" />
+      <workItem from="1778850481744" duration="9734000" />
     </task>
     <task id="LOCAL-00001" summary="rebuild">
       <option name="closed" value="true" />
@@ -118,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778859272055</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="revalidate">
+      <option name="closed" value="true" />
+      <created>1778859867805</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778859867805</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +150,7 @@
     <MESSAGE value="rebuild 3" />
     <MESSAGE value="optymalizacja" />
     <MESSAGE value="readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme" />
+    <MESSAGE value="revalidate" />
+    <option name="LAST_COMMIT_MESSAGE" value="revalidate" />
   </component>
 </project>

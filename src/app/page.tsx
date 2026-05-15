@@ -1,5 +1,7 @@
 import { getPosts } from '@/lib/wordpress'
 import PostsSlider from '@/components/PostsSlider'
+import { Card, CardContent } from '@/components/ui/card'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function HomePage() {
@@ -8,53 +10,72 @@ export default async function HomePage() {
   const listPosts = posts.slice(5)
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10">
+    <main className="max-w-7xl mx-auto px-6 py-10">
       <PostsSlider posts={sliderPosts} />
 
       {listPosts.length > 0 && (
-        <section className="mt-16">
-          <h2 className="text-2xl font-bold mb-8">Więcej artykułów</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="mt-20">
+          <div className="flex items-baseline justify-between mb-10">
+            <h2 className="text-2xl font-bold tracking-tight">Więcej artykułów</h2>
+            <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Wszystkie →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {listPosts.map((post) => {
               const image = post._embedded?.['wp:featuredmedia']?.[0]
+              const category = post._embedded?.['wp:term']?.[0]?.[0]
+
               return (
-                <article key={post.id} className="group flex flex-col">
-                  <div className="overflow-hidden rounded-xl bg-gray-100 mb-4 h-48">
+                <Card key={post.id} className="group overflow-hidden border-border/60 hover:border-border hover:shadow-md transition-all duration-300 py-0 gap-0">
+                  <div className="relative h-48 overflow-hidden bg-muted">
                     {image ? (
-                      <img
+                      <Image
                         src={image.source_url}
                         alt={image.alt_text || post.title.rendered}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-100 to-gray-200" />
+                      <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/10" />
                     )}
                   </div>
-                  <time className="text-xs text-gray-400 mb-1">
-                    {new Date(post.date).toLocaleDateString('pl-PL', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </time>
-                  <h3 className="font-semibold text-lg mb-2 leading-snug">
+
+                  <CardContent className="p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      {category && (
+                        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                          {category.name}
+                        </span>
+                      )}
+                      <span className="text-xs text-muted-foreground/60">
+                        {new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })}
+                      </span>
+                    </div>
+
+                    <h3 className="font-semibold text-base leading-snug mb-3 line-clamp-2">
+                      <Link
+                        href={`/posts/${post.slug}`}
+                        className="hover:text-muted-foreground transition-colors"
+                        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                      />
+                    </h3>
+
+                    <div
+                      className="text-muted-foreground text-sm line-clamp-2 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                    />
+
                     <Link
                       href={`/posts/${post.slug}`}
-                      className="hover:text-blue-600 transition-colors"
-                      dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                    />
-                  </h3>
-                  <div
-                    className="text-gray-500 text-sm line-clamp-2 flex-1"
-                    dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-                  />
-                  <Link
-                    href={`/posts/${post.slug}`}
-                    className="mt-4 text-blue-600 text-sm font-medium hover:underline"
-                  >
-                    Czytaj dalej →
-                  </Link>
-                </article>
+                      className="inline-block mt-4 text-xs font-semibold uppercase tracking-widest hover:text-muted-foreground transition-colors"
+                    >
+                      Czytaj →
+                    </Link>
+                  </CardContent>
+                </Card>
               )
             })}
           </div>

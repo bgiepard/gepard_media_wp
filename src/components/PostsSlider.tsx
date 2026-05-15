@@ -1,6 +1,8 @@
 'use client'
 
 import { WPPost } from '@/types/wordpress'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -18,10 +20,11 @@ export default function PostsSlider({ posts }: Props) {
   const post = posts[current]
   const image = post._embedded?.['wp:featuredmedia']?.[0]
   const author = post._embedded?.author?.[0]
+  const category = post._embedded?.['wp:term']?.[0]?.[0]
 
   return (
-    <section className="relative w-full overflow-hidden rounded-2xl bg-gray-900 shadow-xl">
-      <div className="relative h-[480px]">
+    <section className="relative w-full overflow-hidden rounded-2xl bg-foreground shadow-2xl">
+      <div className="relative h-[520px] md:h-[580px]">
         {image ? (
           <Image
             src={image.source_url}
@@ -29,74 +32,58 @@ export default function PostsSlider({ posts }: Props) {
             fill
             priority={current === 0}
             sizes="100vw"
-            className="object-cover opacity-50"
+            className="object-cover opacity-40"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-gray-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-800" />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-          <div className="flex items-center gap-3 text-sm text-gray-300 mb-3">
-            <time>
-              {new Date(post.date).toLocaleDateString('pl-PL', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              })}
-            </time>
-            {author && <><span>·</span><span>{author.name}</span></>}
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14">
+          <div className="flex items-center gap-3 mb-5">
+            {category && (
+              <Badge variant="secondary" className="bg-white/15 text-white border-0 text-xs uppercase tracking-widest font-semibold backdrop-blur-sm">
+                {category.name}
+              </Badge>
+            )}
+            <span className="text-white/50 text-xs">
+              {new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </span>
+            {author && <span className="text-white/50 text-xs">· {author.name}</span>}
           </div>
 
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 max-w-2xl leading-tight">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 max-w-3xl leading-tight tracking-tight">
             <Link
               href={`/posts/${post.slug}`}
               dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-              className="hover:text-blue-400 transition-colors"
+              className="hover:text-white/80 transition-colors"
             />
           </h2>
 
           <div
-            className="text-gray-300 text-sm md:text-base line-clamp-2 max-w-xl mb-6"
+            className="text-white/60 text-sm md:text-base line-clamp-2 max-w-2xl mb-8 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
           />
 
-          <Link
-            href={`/posts/${post.slug}`}
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors text-sm"
-          >
-            Czytaj dalej →
-          </Link>
+          <Button asChild variant="secondary" className="bg-white text-foreground hover:bg-white/90 font-semibold rounded-full px-6">
+            <Link href={`/posts/${post.slug}`}>Czytaj artykuł →</Link>
+          </Button>
         </div>
       </div>
 
       {posts.length > 1 && (
         <>
-          <button
-            onClick={prev}
-            aria-label="Poprzedni"
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors backdrop-blur-sm"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            aria-label="Następny"
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors backdrop-blur-sm"
-          >
-            ›
-          </button>
+          <button onClick={prev} aria-label="Poprzedni" className="absolute left-5 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all backdrop-blur-sm text-lg">‹</button>
+          <button onClick={next} aria-label="Następny" className="absolute right-5 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all backdrop-blur-sm text-lg">›</button>
 
-          <div className="absolute bottom-4 right-8 flex gap-2">
+          <div className="absolute bottom-8 right-10 flex gap-1.5">
             {posts.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
                 aria-label={`Slajd ${i + 1}`}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  i === current ? 'bg-white w-6' : 'bg-white/40'
-                }`}
+                className={`h-1 rounded-full transition-all duration-300 ${i === current ? 'bg-white w-8' : 'bg-white/30 w-4'}`}
               />
             ))}
           </div>

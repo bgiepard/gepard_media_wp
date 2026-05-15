@@ -1,34 +1,45 @@
 import Link from 'next/link'
+import { Separator } from '@/components/ui/separator'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 mt-auto">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row justify-between gap-8">
-          <div>
-            <p className="text-white text-xl font-bold tracking-tight mb-2">
-              Gepard<span className="text-blue-500">.</span>media
+    <footer className="bg-foreground text-background mt-auto">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div className="md:col-span-1">
+            <p className="text-xl font-bold tracking-tight mb-3">
+              gepard<span className="text-background/40 font-light">.media</span>
             </p>
-            <p className="text-sm max-w-xs">
+            <p className="text-background/60 text-sm leading-relaxed max-w-xs">
               Tworzymy strony i aplikacje internetowe, które działają szybko i wyglądają świetnie.
             </p>
           </div>
-          <div className="flex gap-12 text-sm">
-            <div className="flex flex-col gap-3">
-              <p className="text-white font-semibold">Nawigacja</p>
-              <Link href="/" className="hover:text-white transition-colors">Blog</Link>
-              <Link href="/o-nas" className="hover:text-white transition-colors">O nas</Link>
-              <Link href="/kontakt" className="hover:text-white transition-colors">Kontakt</Link>
-            </div>
-            <div className="flex flex-col gap-3">
-              <p className="text-white font-semibold">Kontakt</p>
-              <span>kontakt@gepard.media</span>
+
+          <div>
+            <p className="text-xs uppercase tracking-widest text-background/40 mb-4 font-semibold">Nawigacja</p>
+            <nav className="flex flex-col gap-2.5 text-sm text-background/70">
+              <Link href="/" className="hover:text-background transition-colors">Blog</Link>
+              <Link href="/sklep" className="hover:text-background transition-colors">Sklep</Link>
+              <Link href="/o-nas" className="hover:text-background transition-colors">O nas</Link>
+              <Link href="/kontakt" className="hover:text-background transition-colors">Kontakt</Link>
+            </nav>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-widest text-background/40 mb-4 font-semibold">Kontakt</p>
+            <div className="flex flex-col gap-2.5 text-sm text-background/70">
+              <a href="mailto:kontakt@gepard.media" className="hover:text-background transition-colors">
+                kontakt@gepard.media
+              </a>
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-10 pt-6 text-sm text-center">
+
+        <Separator className="bg-background/10 mb-6" />
+
+        <p className="text-xs text-background/40">
           © {new Date().getFullYear()} Gepard.media — Wszelkie prawa zastrzeżone
-        </div>
+        </p>
       </div>
     </footer>
   )
